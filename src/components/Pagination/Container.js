@@ -7,12 +7,9 @@ function Container() {
   const [pagesRequired,setpagesRequired]=useState(10)
 
   useEffect(()=>{
-    const fetchData=()=>{
-      return axios.get(`https://jsonplaceholder.typicode.com/posts`).then((res)=>{
+    const fetchData=async()=>{
+      const res=await axios.get(`https://jsonplaceholder.typicode.com/posts`)
         setPosts(res.data)
-      }).catch((error)=>{
-        console.error(error)
-      })
     }
     fetchData()
   },[])
@@ -20,7 +17,7 @@ function Container() {
   const lastPage =currentPage*pagesRequired 
   const firstPage = lastPage-pagesRequired
   const middle = posts.slice(firstPage,lastPage)
-  const totalPage = posts.length
+  const totalPages = posts.length
   const pagination = (pages) => {
     setCurrentPage(pages)
   }
@@ -28,7 +25,7 @@ function Container() {
     <div className="container">
       <Presentation
         posts={middle}
-        totalPage={totalPage}
+        totalPages={totalPages}
         pagesRequired={pagesRequired}
         pagination={pagination}
       />

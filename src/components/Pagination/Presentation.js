@@ -1,14 +1,14 @@
 import React from "react"
-
+import Pagination from "@material-ui/lab/Pagination"
 const Presentation = (props) => {
- const {posts,totalPage,pagesRequired,pagination} = props
-const pages=[]
- for(var i=1;i<Math.ceil(totalPage/pagesRequired);i++){
-   pages.push(i);
- }
+  const { posts, totalPages, pagesRequired, pagination } = props
+  const pages = []
+  for (var i = 1; i <= Math.ceil(totalPages / pagesRequired); i++) {
+    pages.push(i)
+  }
   return (
     <div>
-     <ul className="list-group">
+      <ul className="list-group">
         {posts.map((post) => (
           <li key={post.id} className="list-group-item">
             <mark>{post.id}</mark>-{post.title}
@@ -16,17 +16,15 @@ const pages=[]
         ))}
       </ul>
 
-      <div className="rounded-circle">
-        <ul className="pagination">
-          {pages.map((nums) => (
-            <li key={nums} className="page-item ">
-              <a onClick={pagination} href="paginate" className="page-link">
-                {nums}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <ul className="pagination">
+        {pages.map((item) => (
+          <li key={item} className="page-item">
+            <a onClick={() => pagination(item)} href="#" className="page-link">
+              {item}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
